@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>For Marlen</title>
 
-<!-- Analyze -->
+<!-- Nalyze -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -14,146 +14,111 @@
   gtag('config', 'G-T6FSQJVW7E');
 </script>
 
-<!-- Tailwind CSS -->
+<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
   body {
-    background: linear-gradient(135deg, #f6e6ff, #e8d8ff, #f4e9ff);
-    font-family: "Inter", sans-serif;
+    background: linear-gradient(135deg, #e7d7f7, #f2e8ff);
+    font-family: 'Georgia', serif;
   }
 
-  .fade {
-    animation: fadein 1.8s ease;
+  .fade-in {
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
   }
 
-  @keyframes fadein {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* Gentle breathing animation for flower */
+  @keyframes breathe {
+    0% { transform: scale(1) rotate(-2deg); }
+    50% { transform: scale(1.06) rotate(2deg); }
+    100% { transform: scale(1) rotate(-2deg); }
   }
 
-  /* Animated lilac flower */
   .flower {
-    animation: sway 6s ease-in-out infinite;
-    transform-origin: center;
-  }
-
-  @keyframes sway {
-    0%   { transform: rotate(-2deg) translateY(0); }
-    50%  { transform: rotate(2deg) translateY(4px); }
-    100% { transform: rotate(-2deg) translateY(0); }
-  }
-
-  audio {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    opacity: 0.9;
-  }
-
-  .card {
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(9px);
-    border-radius: 20px;
-    box-shadow: 0 4px 30px rgba(80, 0, 100, 0.15);
+    animation: breathe 8s ease-in-out infinite;
   }
 </style>
-
 </head>
 
 <body class="flex flex-col items-center min-h-screen p-6">
 
-<!-- Working Lilac Flower -->
-<img src="https://raw.githubusercontent.com/Lissy93/cute-icons/main/flowers/lilac.png"
-     class="flower fixed left-4 top-1/3 w-28 opacity-80 pointer-events-none select-none fade"
-     alt="Lilac Flower">
+<!-- Flower (RELIABLE URL + animation) -->
+<img src="https://i.imgur.com/rO3s4jQ.png"
+     class="fixed left-3 top-1/3 w-24 opacity-70 pointer-events-none flower fade-in"
+     alt="Lilac Flower" />
 
-<!-- Working Background Piano Music -->
-<audio controls autoplay loop>
-  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Piano_Music/Piano_Music_-_Calm/Piano_Music_-_Calm.mp3" type="audio/mpeg">
-</audio>
+<!-- Title -->
+<h1 class="text-3xl font-bold text-purple-800 mb-4 fade-in">
+A Quiet Place for You
+</h1>
 
-<h1 class="text-4xl font-bold text-purple-700 mt-6 fade text-center">Be Still</h1>
-<p class="text-purple-900 mt-2 mb-6 fade text-center">A place of peace.</p>
+<!-- Music Player -->
+<div class="mb-6 fade-in text-center">
+  <p class="text-purple-900 font-semibold mb-2">
+    A little music for peace:
+  </p>
+  <audio id="bgMusic" controls>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0fae0bbd97.mp3?filename=soft-piano-ambient-110141.mp3" type="audio/mpeg">
+  </audio>
+  <p class="text-xs text-purple-700 mt-1">(Tap play — phones block autoplay)</p>
+</div>
 
-<!-- Verse Section -->
-<div class="w-full max-w-xl card p-6 fade">
-  <h2 class="text-2xl font-semibold text-purple-800 mb-3">Verse for Today</h2>
-  <p id="verse" class="text-lg text-purple-900 italic">Click below to receive a verse.</p>
-
-  <button onclick="getVerse()" class="mt-4 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">
-    Get Verse
-  </button>
+<!-- Verse of the Day -->
+<div class="bg-white/70 rounded-2xl shadow-lg p-6 w-full max-w-md mb-6 fade-in">
+  <h2 class="text-xl font-semibold text-purple-800 mb-3">Verse for Today</h2>
+  <p id="verse" class="text-purple-900 italic"></p>
 </div>
 
 <!-- Prayer Generator -->
-<div class="w-full max-w-xl card p-6 mt-8 fade">
-  <h2 class="text-2xl font-semibold text-purple-800 mb-3">How Are You Feeling?</h2>
-
-  <select id="feeling" class="w-full p-3 rounded-lg border border-purple-300 focus:ring-purple-500 focus:border-purple-500 mb-4">
-    <option value="anxious">Anxious</option>
-    <option value="lost">Lost</option>
-    <option value="broken">Broken</option>
-    <option value="hopeful">Hopeful</option>
-    <option value="grateful">Grateful</option>
-  </select>
-
-  <button onclick="generatePrayer()" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">
+<div class="bg-white/70 rounded-2xl shadow-lg p-6 w-full max-w-md fade-in">
+  <h2 class="text-xl font-semibold text-purple-800 mb-3">A Prayer for Your Heart</h2>
+  <textarea id="feeling" class="w-full p-2 rounded-lg border border-purple-200 mb-3" placeholder="What are you feeling? (e.g., anxious, tired, hurt, hopeful)"></textarea>
+  <button onclick="generatePrayer()" class="w-full bg-purple-700 hover:bg-purple-800 text-white rounded-xl py-2">
     Generate Prayer
   </button>
-
-  <p id="prayer" class="text-lg text-purple-900 mt-4 italic"></p>
-</div>
-
-<!-- Gentle Reminder Section -->
-<div class="w-full max-w-xl card p-6 mt-8 fade">
-  <h2 class="text-2xl font-semibold text-purple-800 mb-3">A Gentle Reminder</h2>
-
-  <p class="text-purple-900 leading-relaxed">
-    We prayed together.  
-    We searched for peace together.  
-    Even when love was hard, God was near.  
-  </p>
-
-  <p class="mt-3 text-purple-900 italic">
-    “Above all, love each other deeply, because love covers a multitude of sins.” — 1 Peter 4:8
-  </p>
+  <p id="prayer" class="mt-4 text-purple-900"></p>
 </div>
 
 <script>
-  /* FIXED WORKING VERSE API */
-  async function getVerse() {
-    const res = await fetch("https://beta.ourmanna.com/api/v1/get/?format=json");
+// --- Verse of the Day ---
+async function loadVerse() {
+  try {
+    const res = await fetch("https://labs.bible.org/api/?passage=votd&type=json");
     const data = await res.json();
-    document.getElementById("verse").textContent =
-      `${data.verse.details.text} — ${data.verse.details.reference}`;
+    document.getElementById("verse").innerText =
+      `"${data[0].text}" — ${data[0].bookname} ${data[0].chapter}:${data[0].verse}`;
+  } catch (e) {
+    document.getElementById("verse").innerText = "Come to Me, all who are weary and burdened, and I will give you rest. — Matthew 11:28";
   }
+}
+loadVerse();
 
-  function generatePrayer() {
-    const feeling = document.getElementById("feeling").value;
+// --- Prayer Generator ---
+function generatePrayer() {
+  const feeling = document.getElementById("feeling").value.toLowerCase() || "whatever is on her heart";
+  
+  const prayer = `
+Dear Lord,
+You see her completely — her heart, her worries, her hopes.
+Bring peace to her where she feels ${feeling}.
+Cover her with Your gentleness, calm her spirit, and remind her that she is never alone.
+Amen.
+`;
 
-    const prayers = {
-      anxious: "Lord, calm my heart. Wrap me in Your peace, and remind me that You hold every moment.",
-      lost: "God, guide my steps. Light the path when I cannot see it.",
-      broken: "Father, heal what hurts. Make gentle what feels shattered.",
-      hopeful: "Lord, keep this hope alive. Water it with patience and Your timing.",
-      grateful: "God, thank You for every quiet blessing and every moment of grace."
-    };
-
-    document.getElementById("prayer").textContent = prayers[feeling];
-  }
+  document.getElementById("prayer").innerText = prayer;
+}
 </script>
 
 </body>
 </html>
 
  
-
-
-
-   
-
      
+
 
 
 
