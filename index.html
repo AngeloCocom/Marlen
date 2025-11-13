@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>For Marlen</title>
 
-<!-- Nalyze -->
+<!-- Analyze-->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -19,68 +19,114 @@
 
 <style>
   body {
-    background: linear-gradient(135deg, #e7d7f7, #f2e8ff);
+    background: linear-gradient(135deg, #eddcff, #f3e8ff);
     font-family: 'Georgia', serif;
   }
 
-  .fade-in {
-    animation: fadeIn 2s ease forwards;
+  .fade {
+    animation: fadeIn 1.5s ease forwards;
     opacity: 0;
   }
   @keyframes fadeIn {
     to { opacity: 1; }
   }
 
-  /* Gentle breathing animation for flower */
-  @keyframes breathe {
-    0% { transform: scale(1) rotate(-2deg); }
-    50% { transform: scale(1.06) rotate(2deg); }
-    100% { transform: scale(1) rotate(-2deg); }
+  /* --- PURE CSS LILAC FLOWER --- */
+  .lilac {
+    position: fixed;
+    left: 10px;
+    top: 28%;
+    width: 80px;
+    height: 80px;
+    animation: breathe 8s ease-in-out infinite;
+    opacity: 0.8;
+    pointer-events: none;
   }
 
-  .flower {
-    animation: breathe 8s ease-in-out infinite;
+  /* petal styles */
+  .petal {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle at 30% 30%, #d7b3ff, #b989f7);
+    border-radius: 50% 50% 40% 40%;
+  }
+
+  .p1 { top: 0; left: 20px; }
+  .p2 { top: 20px; left: 40px; transform: rotate(60deg); }
+  .p3 { top: 40px; left: 20px; transform: rotate(120deg); }
+  .p4 { top: 20px; left: 0;   transform: rotate(180deg); }
+
+  .center {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    width: 24px;
+    height: 24px;
+    background: radial-gradient(circle, #fff, #e8c8ff);
+    border-radius: 50%;
+  }
+
+  /* gentle breathing animation */
+  @keyframes breathe {
+    0%, 100% { transform: scale(1) rotate(-3deg); }
+    50% { transform: scale(1.06) rotate(3deg); }
   }
 </style>
 </head>
 
 <body class="flex flex-col items-center min-h-screen p-6">
 
-<!-- Flower (RELIABLE URL + animation) -->
-<img src="https://i.imgur.com/rO3s4jQ.png"
-     class="fixed left-3 top-1/3 w-24 opacity-70 pointer-events-none flower fade-in"
-     alt="Lilac Flower" />
+<!-- PURE CSS LILAC FLOWER -->
+<div class="lilac fade">
+  <div class="petal p1"></div>
+  <div class="petal p2"></div>
+  <div class="petal p3"></div>
+  <div class="petal p4"></div>
+  <div class="center"></div>
+</div>
 
 <!-- Title -->
-<h1 class="text-3xl font-bold text-purple-800 mb-4 fade-in">
+<h1 class="text-3xl font-bold text-purple-800 mb-4 fade">
 A Quiet Place for You
 </h1>
 
-<!-- Music Player -->
-<div class="mb-6 fade-in text-center">
-  <p class="text-purple-900 font-semibold mb-2">
-    A little music for peace:
-  </p>
-  <audio id="bgMusic" controls>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0fae0bbd97.mp3?filename=soft-piano-ambient-110141.mp3" type="audio/mpeg">
-  </audio>
-  <p class="text-xs text-purple-700 mt-1">(Tap play — phones block autoplay)</p>
-</div>
-
-<!-- Verse of the Day -->
-<div class="bg-white/70 rounded-2xl shadow-lg p-6 w-full max-w-md mb-6 fade-in">
+<!-- Verse Card -->
+<div class="bg-white/70 rounded-2xl shadow-lg p-6 w-full max-w-md mb-6 fade">
   <h2 class="text-xl font-semibold text-purple-800 mb-3">Verse for Today</h2>
-  <p id="verse" class="text-purple-900 italic"></p>
+  <p id="verse" class="text-purple-900 italic leading-relaxed"></p>
 </div>
 
 <!-- Prayer Generator -->
-<div class="bg-white/70 rounded-2xl shadow-lg p-6 w-full max-w-md fade-in">
+<div class="bg-white/70 rounded-2xl shadow-lg p-6 w-full max-w-md fade">
   <h2 class="text-xl font-semibold text-purple-800 mb-3">A Prayer for Your Heart</h2>
-  <textarea id="feeling" class="w-full p-2 rounded-lg border border-purple-200 mb-3" placeholder="What are you feeling? (e.g., anxious, tired, hurt, hopeful)"></textarea>
-  <button onclick="generatePrayer()" class="w-full bg-purple-700 hover:bg-purple-800 text-white rounded-xl py-2">
+
+  <textarea id="feeling"
+    class="w-full p-2 rounded-lg border border-purple-200 mb-3"
+    placeholder="What are you feeling? (e.g., anxious, tired, hurt, hopeful)">
+  </textarea>
+
+  <button onclick="generatePrayer()"
+    class="w-full bg-purple-700 hover:bg-purple-800 text-white rounded-xl py-2">
     Generate Prayer
   </button>
-  <p id="prayer" class="mt-4 text-purple-900"></p>
+
+  <p id="prayer" class="mt-4 text-purple-900 leading-relaxed"></p>
+</div>
+
+<!-- Gentle Reminder Section -->
+<div class="w-full max-w-xl bg-white/70 rounded-2xl shadow-lg p-6 mt-8 fade">
+  <h2 class="text-2xl font-semibold text-purple-800 mb-3">A Gentle Reminder</h2>
+
+  <p class="text-purple-900 leading-relaxed">
+    We prayed together.  
+    We searched for peace together.  
+    Even when love was hard, God was near.  
+  </p>
+
+  <p class="mt-3 text-purple-900 italic">
+    “Above all, love each other deeply, because love covers a multitude of sins.” — 1 Peter 4:8
+  </p>
 </div>
 
 <script>
@@ -92,7 +138,8 @@ async function loadVerse() {
     document.getElementById("verse").innerText =
       `"${data[0].text}" — ${data[0].bookname} ${data[0].chapter}:${data[0].verse}`;
   } catch (e) {
-    document.getElementById("verse").innerText = "Come to Me, all who are weary and burdened, and I will give you rest. — Matthew 11:28";
+    document.getElementById("verse").innerText =
+      "Come to Me, all who are weary and burdened, and I will give you rest. — Matthew 11:28";
   }
 }
 loadVerse();
@@ -100,14 +147,14 @@ loadVerse();
 // --- Prayer Generator ---
 function generatePrayer() {
   const feeling = document.getElementById("feeling").value.toLowerCase() || "whatever is on her heart";
-  
+
   const prayer = `
 Dear Lord,
 You see her completely — her heart, her worries, her hopes.
 Bring peace to her where she feels ${feeling}.
 Cover her with Your gentleness, calm her spirit, and remind her that she is never alone.
 Amen.
-`;
+  `;
 
   document.getElementById("prayer").innerText = prayer;
 }
@@ -115,11 +162,3 @@ Amen.
 
 </body>
 </html>
-
- 
-     
-
-
-
-
-
