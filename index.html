@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Be Still</title>
+<title>For Marlen</title>
 
 <!-- Analyze -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
@@ -14,7 +14,7 @@
   gtag('config', 'G-T6FSQJVW7E');
 </script>
 
-<!-- Tailwind  nog working 3rd try -->
+<!-- Tailwind CSS -->
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
@@ -32,7 +32,7 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Lilac Flower Animation */
+  /* Animated lilac flower */
   .flower {
     animation: sway 6s ease-in-out infinite;
     transform-origin: center;
@@ -44,15 +44,13 @@
     100% { transform: rotate(-2deg) translateY(0); }
   }
 
-  /* Background music */
   audio {
     position: fixed;
     bottom: 15px;
     right: 15px;
-    opacity: 0.85;
+    opacity: 0.9;
   }
 
-  /* Lilac Cards */
   .card {
     background: rgba(255, 255, 255, 0.55);
     backdrop-filter: blur(9px);
@@ -65,14 +63,14 @@
 
 <body class="flex flex-col items-center min-h-screen p-6">
 
-<!-- Animated Lilac Flower -->
-<img src="https://cdn.pixabay.com/photo/2020/07/02/21/26/lilac-5366053_960_720.png"
-     class="flower fixed left-4 top-1/3 w-28 opacity-75 pointer-events-none select-none fade"
+<!-- Working Lilac Flower -->
+<img src="https://raw.githubusercontent.com/Lissy93/cute-icons/main/flowers/lilac.png"
+     class="flower fixed left-4 top-1/3 w-28 opacity-80 pointer-events-none select-none fade"
      alt="Lilac Flower">
 
-<!-- Background Piano Music -->
+<!-- Working Background Piano Music -->
 <audio controls autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/29/audio_1b5990e209.mp3?filename=calm-piano-ambient-111279.mp3" type="audio/mpeg">
+  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Piano_Music/Piano_Music_-_Calm/Piano_Music_-_Calm.mp3" type="audio/mpeg">
 </audio>
 
 <h1 class="text-4xl font-bold text-purple-700 mt-6 fade text-center">Be Still</h1>
@@ -123,10 +121,12 @@
 </div>
 
 <script>
+  /* FIXED WORKING VERSE API */
   async function getVerse() {
-    const res = await fetch("https://bible-api.com/random");
+    const res = await fetch("https://beta.ourmanna.com/api/v1/get/?format=json");
     const data = await res.json();
-    document.getElementById("verse").textContent = `${data.text.trim()} — ${data.reference}`;
+    document.getElementById("verse").textContent =
+      `${data.verse.details.text} — ${data.verse.details.reference}`;
   }
 
   function generatePrayer() {
@@ -147,10 +147,14 @@
 </body>
 </html>
 
+ 
+
+
+
    
 
-
      
+
 
 
 
