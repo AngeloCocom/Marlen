@@ -1,206 +1,156 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A Place to for you</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be Still</title>
 
-  <!-- analyze -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-T6FSQJVW7E', { 'send_page_view': true });
-  </script>
+<!-- Analyze -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T6FSQJVW7E');
+</script>
 
-  <style>
-    :root{
-      --bg:#fbf9f6; --card:#ffffff; --muted:#6b6b6b;
-      --accent:#c9a97a;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    html,body{height:100%; margin:0; background:var(--bg); color:#111;}
-    .wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:28px;}
-    .card{max-width:720px; width:100%; background:var(--card); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,0.06); padding:28px;}
-    h1{margin:0; font-size:28px; letter-spacing:0.2px;}
-    p.lead{margin:10px 0 22px; color:var(--muted);}
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px;}
-    button, select{background:#fff;border:1px solid #eee;padding:10px 14px;border-radius:10px;font-size:15px;cursor:pointer;}
-    button.primary{background:linear-gradient(180deg, #fff, #fff); border:1px solid var(--accent); box-shadow:0 2px 6px rgba(0,0,0,0.04);}
-    .verse{padding:18px;border-radius:10px;border:1px solid #f1f1f1; background:linear-gradient(180deg,#fff,#fbfbfb); margin-bottom:14px; min-height:88px;}
-    .ref{font-weight:600; margin-top:8px; color:var(--muted);}
-    .muted{color:var(--muted); font-size:14px;}
-    footer{margin-top:10px; color:var(--muted); font-size:13px;}
-    .small{font-size:13px}
-    .center{display:flex; gap:10px; align-items:center; justify-content:center;}
-    .fade {opacity:0; transform: translateY(6px); transition:all 400ms cubic-bezier(.2,.9,.2,1);}
-    .fade.in{opacity:1; transform:none;}
-    .signature{font-family: "Segoe Script", "Pacifico", cursive; color:#8f6b49; font-size:15px;}
-  </style>
+<!-- Tailwind  nog working 3rd try -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #f6e6ff, #e8d8ff, #f4e9ff);
+    font-family: "Inter", sans-serif;
+  }
+
+  .fade {
+    animation: fadein 1.8s ease;
+  }
+
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Lilac Flower Animation */
+  .flower {
+    animation: sway 6s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  @keyframes sway {
+    0%   { transform: rotate(-2deg) translateY(0); }
+    50%  { transform: rotate(2deg) translateY(4px); }
+    100% { transform: rotate(-2deg) translateY(0); }
+  }
+
+  /* Background music */
+  audio {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    opacity: 0.85;
+  }
+
+  /* Lilac Cards */
+  .card {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(9px);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(80, 0, 100, 0.15);
+  }
+</style>
+
 </head>
 
-<body>
+<body class="flex flex-col items-center min-h-screen p-6">
 
-  <!-- Soft Classical Piano Background -->
-  <audio id="bgm" autoplay loop volume="0.25">
-      <source src="https://cdn.pixabay.com/audio/2023/03/07/audio_6ae2ed7d42.mp3" type="audio/mpeg">
-  </audio>
+<!-- Animated Lilac Flower -->
+<img src="https://cdn.pixabay.com/photo/2020/07/02/21/26/lilac-5366053_960_720.png"
+     class="flower fixed left-4 top-1/3 w-28 opacity-75 pointer-events-none select-none fade"
+     alt="Lilac Flower">
 
-  <script>
-    // Reduce initial volume further for safety
-    const bgm = document.getElementById('bgm');
-    bgm.volume = 0.15;
+<!-- Background Piano Music -->
+<audio controls autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/29/audio_1b5990e209.mp3?filename=calm-piano-ambient-111279.mp3" type="audio/mpeg">
+</audio>
 
-    // For browsers that block autoplay without interaction
-    document.addEventListener('click', () => {
-        if (bgm.paused) bgm.play();
-    }, { once:true });
-  </script>
+<h1 class="text-4xl font-bold text-purple-700 mt-6 fade text-center">Be Still</h1>
+<p class="text-purple-900 mt-2 mb-6 fade text-center">A place of peace.</p>
 
-  <div class="wrap">
-    <div class="card" role="main" aria-labelledby="title">
-      <h1 id="title">Be still.</h1>
-      <p class="lead">A quiet place to read, pray, and remember the good. No pressure. No explanations.</p>
+<!-- Verse Section -->
+<div class="w-full max-w-xl card p-6 fade">
+  <h2 class="text-2xl font-semibold text-purple-800 mb-3">Verse for Today</h2>
+  <p id="verse" class="text-lg text-purple-900 italic">Click below to receive a verse.</p>
 
-      <!-- Verse area -->
-      <div class="verse fade" id="verseBox">
-        <div id="verseText" class="muted small">Tap a feeling, then read a verse.</div>
-        <div id="verseRef" class="ref"></div>
-      </div>
+  <button onclick="getVerse()" class="mt-4 px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">
+    Get Verse
+  </button>
+</div>
 
-      <!-- Controls -->
-      <div class="row">
-        <select id="mood" aria-label="How do you feel?">
-          <option value="">I feel…</option>
-          <option value="anxious">Anxious</option>
-          <option value="broken">Broken</option>
-          <option value="hopeful">Hopeful</option>
-          <option value="grateful">Grateful</option>
-          <option value="lost">Lost</option>
-        </select>
+<!-- Prayer Generator -->
+<div class="w-full max-w-xl card p-6 mt-8 fade">
+  <h2 class="text-2xl font-semibold text-purple-800 mb-3">How Are You Feeling?</h2>
 
-        <button id="getVerse" class="primary">Read a Verse</button>
-        <button id="randomPrayer">Pray (generate)</button>
-        <button id="getSign">Ask for a Sign</button>
-      </div>
+  <select id="feeling" class="w-full p-3 rounded-lg border border-purple-300 focus:ring-purple-500 focus:border-purple-500 mb-4">
+    <option value="anxious">Anxious</option>
+    <option value="lost">Lost</option>
+    <option value="broken">Broken</option>
+    <option value="hopeful">Hopeful</option>
+    <option value="grateful">Grateful</option>
+  </select>
 
-      <div class="row center small muted">
-        <div id="lastAction">—</div>
-      </div>
+  <button onclick="generatePrayer()" class="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition">
+    Generate Prayer
+  </button>
 
-      <section id="goodShared" class="fade" style="margin-top:8px;">
-        <p class="small muted">We prayed together. We sought God in our quiet moments.</p>
-      </section>
+  <p id="prayer" class="text-lg text-purple-900 mt-4 italic"></p>
+</div>
 
-      <footer class="muted small">
-        <div>May the peace of God guard your heart. — Philippians 4:7</div>
-        <div style="margin-top:8px" class="signature">built with love</div>
-      </footer>
-    </div>
-  </div>
+<!-- Gentle Reminder Section -->
+<div class="w-full max-w-xl card p-6 mt-8 fade">
+  <h2 class="text-2xl font-semibold text-purple-800 mb-3">A Gentle Reminder</h2>
+
+  <p class="text-purple-900 leading-relaxed">
+    We prayed together.  
+    We searched for peace together.  
+    Even when love was hard, God was near.  
+  </p>
+
+  <p class="mt-3 text-purple-900 italic">
+    “Above all, love each other deeply, because love covers a multitude of sins.” — 1 Peter 4:8
+  </p>
+</div>
 
 <script>
-const bibleApiBase = 'https://bible-api.com/';
-
-const curated = {
-  anxious: { ref:'Philippians 4:6-7', text:'Be anxious for nothing. Pray. Then God’s peace will guard you.' },
-  broken: { ref:'Psalm 34:18', text:'The Lord is close to the brokenhearted and saves those crushed in spirit.' },
-  hopeful: { ref:'Jeremiah 29:11', text:'I know the plans I have for you—plans to give you hope and a future.' },
-  grateful: { ref:'1 Thessalonians 5:18', text:'Give thanks in all circumstances; this is God’s will for you.' },
-  lost: { ref:'Psalm 119:105', text:'Your word is a lamp for my feet, a light on my path.' }
-};
-
-const prayers = [
-  'Lord, give her the quiet she seeks. Hold her close and calm the storm.',
-  'May Your gentle peace rest on her today. Let prayer be her shelter.',
-  'Father, heal what I have harmed. Teach me patience and new fruit.',
-  'May grace meet her where she is and gently restore what’s broken.'
-];
-
-const signs = [
-  'Sometimes persistent love is the sign you asked for.',
-  'A soft answer, a calm heart—these are small signs of new ways.',
-  'Watch for small mercies. God often uses the quietest moments.'
-];
-
-function el(id){ return document.getElementById(id); }
-
-function fadeIn(sel){ sel.classList.add('in'); }
-
-function showVerse(text, ref){
-  el('verseText').textContent = text;
-  el('verseRef').textContent = ref || '';
-  fadeIn(el('verseBox'));
-}
-
-async function fetchVerse(ref){
-  try {
-    const encoded = encodeURIComponent(ref);
-    const res = await fetch(bibleApiBase + encoded);
-    if(!res.ok) throw new Error();
-    const j = await res.json();
-    if(j && j.text){
-      return {text: j.text.trim(), ref: j.reference || ref};
-    }
-  } catch(e){ return null; }
-}
-
-function sendAnalytics(action, details = {}){
-  if(typeof gtag === 'function'){
-    gtag('event', action, {
-      event_category: 'engagement',
-      event_label: details.label || '',
-      value: 1,
-      referrer: document.referrer || 'direct'
-    });
+  async function getVerse() {
+    const res = await fetch("https://bible-api.com/random");
+    const data = await res.json();
+    document.getElementById("verse").textContent = `${data.text.trim()} — ${data.reference}`;
   }
-}
 
-el('getVerse').addEventListener('click', async ()=>{
-  const mood = el('mood').value || 'hopeful';
-  el('lastAction').textContent = 'Fetching verse…';
-  sendAnalytics('verse_request', {label:mood});
+  function generatePrayer() {
+    const feeling = document.getElementById("feeling").value;
 
-  const mapping = {
-    anxious:'Philippians 4:6-7',
-    broken:'Psalm 34:18',
-    hopeful:'Jeremiah 29:11',
-    grateful:'1 Thessalonians 5:18',
-    lost:'Psalm 119:105'
-  };
+    const prayers = {
+      anxious: "Lord, calm my heart. Wrap me in Your peace, and remind me that You hold every moment.",
+      lost: "God, guide my steps. Light the path when I cannot see it.",
+      broken: "Father, heal what hurts. Make gentle what feels shattered.",
+      hopeful: "Lord, keep this hope alive. Water it with patience and Your timing.",
+      grateful: "God, thank You for every quiet blessing and every moment of grace."
+    };
 
-  const ref = mapping[mood];
-  let v = await fetchVerse(ref);
-  if(!v) v = curated[mood];
-
-  showVerse(v.text, v.ref);
-  el('lastAction').textContent = `Verse shown — ${v.ref}`;
-  sendAnalytics('verse_shown', {label: v.ref});
-});
-
-el('randomPrayer').addEventListener('click', ()=>{
-  const p = prayers[Math.floor(Math.random()*prayers.length)];
-  showVerse(p, 'A short prayer');
-  el('lastAction').textContent = 'Prayer generated';
-  sendAnalytics('prayer_clicked');
-});
-
-el('getSign').addEventListener('click', ()=>{
-  const s = signs[Math.floor(Math.random()*signs.length)];
-  showVerse(s, 'A gentle sign');
-  el('lastAction').textContent = 'Sign shown';
-  sendAnalytics('sign_requested');
-});
-
-el('mood').addEventListener('keydown', (e)=>{
-  if(e.key === 'Enter') el('getVerse').click();
-});
-
-setTimeout(()=>{ fadeIn(el('goodShared')); }, 400);
+    document.getElementById("prayer").textContent = prayers[feeling];
+  }
 </script>
 
 </body>
 </html>
+
+   
+
+
+     
+
 
 
