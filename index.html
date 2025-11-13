@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>A Place to Be Still</title>
 
-  <!-- Replace G-XXXXXXXXXX with your GA4 Measurement ID (instructions below) -->
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  
+  <!-- Analyze-->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX', { 'send_page_view': true });
+    gtag('config', 'G-T6FSQJVW7E', { 'send_page_view': true });
   </script>
 
   <style>
@@ -89,8 +89,8 @@
 */
 
 // === Config ===
-const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // replace in HTML head AND here if needed
-const bibleApiBase = 'https://bible-api.com/'; // public JSON API (no key needed)
+const GA_MEASUREMENT_ID = 'G-T6FSQJVW7E'; // 
+const bibleApiBase = 'https://bible-api.com/'; // public JSON API 
 
 // curated fallback verses (short & safe)
 const curated = {
@@ -188,7 +188,7 @@ el('getSign').addEventListener('click', ()=>{
   sendAnalytics('sign_requested', {label:'ask_sign'});
 });
 
-// small accessibility: allow Enter on select to fetch
+// small accessibility
 el('mood').addEventListener('keydown', (e)=>{
   if(e.key === 'Enter') el('getVerse').click();
 });
@@ -198,3 +198,4 @@ setTimeout(()=>{ fadeIn(el('goodShared')); }, 400);
 </script>
 </body>
 </html>
+
