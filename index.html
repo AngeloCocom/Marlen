@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A Place to Be Still</title>
+  <title>A Place to for you</title>
 
-  
-  <!-- Analyze-->
+  <!-- analyze -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-T6FSQJVW7E"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -40,11 +39,29 @@
     .signature{font-family: "Segoe Script", "Pacifico", cursive; color:#8f6b49; font-size:15px;}
   </style>
 </head>
+
 <body>
+
+  <!-- Soft Classical Piano Background -->
+  <audio id="bgm" autoplay loop volume="0.25">
+      <source src="https://cdn.pixabay.com/audio/2023/03/07/audio_6ae2ed7d42.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Reduce initial volume further for safety
+    const bgm = document.getElementById('bgm');
+    bgm.volume = 0.15;
+
+    // For browsers that block autoplay without interaction
+    document.addEventListener('click', () => {
+        if (bgm.paused) bgm.play();
+    }, { once:true });
+  </script>
+
   <div class="wrap">
     <div class="card" role="main" aria-labelledby="title">
       <h1 id="title">Be still.</h1>
-      <p class="lead">A quiet place to read, pray, and express my love for you. No pressure. No explanation.</p>
+      <p class="lead">A quiet place to read, pray, and remember the good. No pressure. No explanations.</p>
 
       <!-- Verse area -->
       <div class="verse fade" id="verseBox">
@@ -73,129 +90,117 @@
       </div>
 
       <section id="goodShared" class="fade" style="margin-top:8px;">
-        <p class="small muted">We prayed together. We tried to invite God into our hearts. The shelter of that is still real.</p>
+        <p class="small muted">We prayed together. We sought God in our quiet moments.</p>
       </section>
 
       <footer class="muted small">
-        <div>May peace guard your heart. — Philippians 4:7</div>
-        <div style="margin-top:8px" class="signature">built with quiet hope</div>
+        <div>May the peace of God guard your heart. — Philippians 4:7</div>
+        <div style="margin-top:8px" class="signature">built with love</div>
       </footer>
     </div>
   </div>
 
 <script>
-/*
- fitting all on one index for minimal errors, hopefully it works.
-*/
+const bibleApiBase = 'https://bible-api.com/';
 
-// === Config ===
-const GA_MEASUREMENT_ID = 'G-T6FSQJVW7E'; // 
-const bibleApiBase = 'https://bible-api.com/'; // public JSON API 
-
-// curated fallback verses (short & safe)
 const curated = {
   anxious: { ref:'Philippians 4:6-7', text:'Be anxious for nothing. Pray. Then God’s peace will guard you.' },
-  broken: { ref:'Psalm 34:18', text:'The Lord is close to the brokenhearted and saves those who are crushed in spirit.' },
+  broken: { ref:'Psalm 34:18', text:'The Lord is close to the brokenhearted and saves those crushed in spirit.' },
   hopeful: { ref:'Jeremiah 29:11', text:'I know the plans I have for you—plans to give you hope and a future.' },
-  grateful: { ref:'1 Thessalonians 5:18', text:'Give thanks in all circumstances; for this is God’s will for you.' },
+  grateful: { ref:'1 Thessalonians 5:18', text:'Give thanks in all circumstances; this is God’s will for you.' },
   lost: { ref:'Psalm 119:105', text:'Your word is a lamp for my feet, a light on my path.' }
 };
 
 const prayers = [
   'Lord, give her the quiet she seeks. Hold her close and calm the storm.',
-  'May your gentle peace rest on her today. Let prayer be her shelter.',
-  'Father, heal what I have harmed. Teach me patience, show me new fruit.',
-  'May grace meet her where she sits and gently restore what was broken.'
+  'May Your gentle peace rest on her today. Let prayer be her shelter.',
+  'Father, heal what I have harmed. Teach me patience and new fruit.',
+  'May grace meet her where she is and gently restore what’s broken.'
 ];
 
 const signs = [
-  'Both of you could be the sign you asked for.',
+  'Sometimes persistent love is the sign you asked for.',
   'A soft answer, a calm heart—these are small signs of new ways.',
   'Watch for small mercies. God often uses the quietest moments.'
 ];
 
 function el(id){ return document.getElementById(id); }
 
-// fade-in helper
-function fadeIn(sel){
-  sel.classList.add('in');
-}
+function fadeIn(sel){ sel.classList.add('in'); }
 
-// show verse UI
 function showVerse(text, ref){
   el('verseText').textContent = text;
   el('verseRef').textContent = ref || '';
   fadeIn(el('verseBox'));
 }
 
-// try to fetch verse text from bible-api
 async function fetchVerse(ref){
   try {
     const encoded = encodeURIComponent(ref);
     const res = await fetch(bibleApiBase + encoded);
-    if(!res.ok) throw new Error('no api');
+    if(!res.ok) throw new Error();
     const j = await res.json();
-    // bible-api returns .text (the verse) and .reference
     if(j && j.text){
       return {text: j.text.trim(), ref: j.reference || ref};
     }
-  } catch(e){
-    return null;
+  } catch(e){ return null; }
+}
+
+function sendAnalytics(action, details = {}){
+  if(typeof gtag === 'function'){
+    gtag('event', action, {
+      event_category: 'engagement',
+      event_label: details.label || '',
+      value: 1,
+      referrer: document.referrer || 'direct'
+    });
   }
 }
 
-// 
-function sendAnalytics(action, details = {}){
-  try {
-    if(typeof gtag === 'function'){
-      gtag('event', action, Object.assign({
-        event_category: 'engagement',
-        event_label: details.label || '',
-        value: 1,
-        referrer: document.referrer || 'direct'
-      }, details));
-    }
-  } catch(e){ console.warn('gtag missing', e); }
-}
-
-// button handlers
 el('getVerse').addEventListener('click', async ()=>{
   const mood = el('mood').value || 'hopeful';
   el('lastAction').textContent = 'Fetching verse…';
   sendAnalytics('verse_request', {label:mood});
-  const mapping = { anxious:'Philippians 4:6-7', broken:'Psalm 34:18', hopeful:'Jeremiah 29:11', grateful:'1 Thessalonians 5:18', lost:'Psalm 119:105' };
-  const ref = mapping[mood] || mapping['hopeful'];
+
+  const mapping = {
+    anxious:'Philippians 4:6-7',
+    broken:'Psalm 34:18',
+    hopeful:'Jeremiah 29:11',
+    grateful:'1 Thessalonians 5:18',
+    lost:'Psalm 119:105'
+  };
+
+  const ref = mapping[mood];
   let v = await fetchVerse(ref);
-  if(!v){ v = curated[mood] || curated['hopeful']; }
-  showVerse(v.text, v.ref || ref);
-  el('lastAction').textContent = `Verse shown — ${v.ref || ref}`;
-  sendAnalytics('verse_shown', {label: v.ref || ref});
+  if(!v) v = curated[mood];
+
+  showVerse(v.text, v.ref);
+  el('lastAction').textContent = `Verse shown — ${v.ref}`;
+  sendAnalytics('verse_shown', {label: v.ref});
 });
 
-// generate prayer
 el('randomPrayer').addEventListener('click', ()=>{
   const p = prayers[Math.floor(Math.random()*prayers.length)];
   showVerse(p, 'A short prayer');
   el('lastAction').textContent = 'Prayer generated';
-  sendAnalytics('prayer_clicked', {label:'generated_prayer'});
+  sendAnalytics('prayer_clicked');
 });
 
-// ask for a sign
 el('getSign').addEventListener('click', ()=>{
   const s = signs[Math.floor(Math.random()*signs.length)];
   showVerse(s, 'A gentle sign');
   el('lastAction').textContent = 'Sign shown';
-  sendAnalytics('sign_requested', {label:'ask_sign'});
+  sendAnalytics('sign_requested');
 });
 
-// small accessibility
 el('mood').addEventListener('keydown', (e)=>{
   if(e.key === 'Enter') el('getVerse').click();
 });
 
-// initial fade
 setTimeout(()=>{ fadeIn(el('goodShared')); }, 400);
 </script>
+
 </body>
 </html>
+
 
